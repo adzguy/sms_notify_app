@@ -1,0 +1,38 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-offset-2 col-lg-8">
+        <h1>SMS Marketing Notifications</h1>
+
+        <p>Use this form to send notifications to subscribers</p>
+
+        <form method="POST" action="" class="form-horizontal">
+            {% from "_formhelpers.html" import render_errors, render_field %}
+            {{ form.csrf_token }}
+            {{ render_errors(form) }}
+
+            <!-- messages -->
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="alert alert-info">
+                            <span>{{ message }}</span>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+            <hr/>
+
+            {{ render_field(form.message, placeholder='New things are happening!') }}
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    {{ form.submit(class="btn btn-primary", style="background: #5769b0") }}
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+{% endblock content %}
